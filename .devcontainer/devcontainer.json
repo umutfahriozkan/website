@@ -1,0 +1,12 @@
+{
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"remoteEnv": {
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+	},
+	"remoteUser": "codespace",
+	"containerEnv": {
+		"GIT_EDITOR": "code --wait"
+	}
+}
