@@ -13,7 +13,7 @@ export default class DocsSource {
     this.repo = options.repo;
     this.defaultTag = options.defaultTag || 'master';
     this.defaultFile = options.defaultFile || { category: 'general', id: 'welcome' };
-    this.source = options.source || `https://github.com/${this.repo}/blob/`;
+    this.source = options.source || `https://github.com/discordjs/${this.repo}/blob/`;
     this.branchFilter = options.branchFilter || (branch => branch !== 'master');
     this.tagFilter = options.tagFilter || (() => true);
     this.tags = null;
@@ -23,8 +23,8 @@ export default class DocsSource {
   fetchTags() {
     if (this.tags) return Promise.resolve(this.tags);
     return Promise.all([
-      fetch(`https://api.github.com/repos/${this.repo}/branches`).then(json),
-      fetch(`https://api.github.com/repos/${this.repo}/tags`).then(json),
+      fetch(`https://api.github.com/repos/discordjs/${this.repo}/branches`).then(json),
+      fetch(`https://api.github.com/repos/discordjs/${this.repo}/tags`).then(json),
     ]).catch(err => {
       if (localStorage[`source-${this.id}`]) {
         console.error(err);
@@ -72,6 +72,6 @@ export default class DocsSource {
   }
 
   fetchDocs(tag) {
-    return fetch(`https://raw.githubusercontent.com/${this.repo}/docs/${tag}.json`).then(json);
+    return fetch(`https://raw.githubusercontent.com/discordjs/docs/refs/heads/main/${this.repo}/${tag}.json`).then(json);
   }
 }

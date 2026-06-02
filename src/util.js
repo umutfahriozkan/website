@@ -1,24 +1,28 @@
 import { resolve as resolveURL } from 'url';
+import {marked} from 'marked'
 
-// Highlights an element with highlight.js, delaying until it's loaded
-export function hljs(el) {
-  if (window.hljs) {
-    window.hljs.highlightBlock(el);
-  } else {
-    let attempts = 0;
-    const interval = setInterval(() => {
-      if (window.hljs) {
-        window.hljs.highlightBlock(el);
-        clearInterval(interval);
-      } else {
-        attempts++;
-        if (attempts >= 50) clearInterval(interval);
-      }
-    }, 100);
-  }
+export function renderMarkdown(text) {
+  if (!text) text = '**Documentation missing.**'
+
+  const html = marked(text)
+  return html.replace(
+    /<(info|warn)>([\s\S]+)<\/\1>/gi,
+    '<div class="$1">$2</div>'
+  )
 }
 
-// Creates a full URL for a GitHub source view
+import hljsLib from 'highlight.js';
+
+export function hljs(el) {
+  if (!el) return;
+
+  // Avoid double-highlighting
+  if (el.dataset.highlighted) return;
+
+  hljsLib.highlightElement(el);
+  el.dataset.highlighted = 'true';
+}
+
 export function sourceURL(url, tag, path, file, line) {
   return resolveURL(url, `${tag}/${path}${file ? `/${file}` : ''}${line ? `#L${line}` : ''}`);
 }
@@ -55,7 +59,8 @@ export function parseLink(link, docs) {
 }
 
 // Converts all JSDoc links to markdown links
-export function convertLinks(text, docs, router, route) {
+export function convertLinks(text, docs, router, source, tag) {
+
   if (!text) return null;
 
   const regex = /\{@link\s+(.+?)(?:\s+(.+?))?\s*\}/gi;
@@ -71,9 +76,12 @@ export function convertLinks(text, docs, router, route) {
       let link;
       if (typeof parsed.link === 'object') {
         if (!parsed.link.params) parsed.link.params = {};
-        parsed.link.params.source = route.params.source;
-        parsed.link.params.tag = route.params.tag;
-        link = router.resolve(parsed.link).href;
+        parsed.link.params.source = source;
+        parsed.link.params.tag = tag;
+
+        console.log(parsed.link)
+
+        link = "" //router.resolve(parsed.link).href;
       } else {
         link = parsed.link;
       }
@@ -102,6 +110,3 @@ export function scopedName(item) {
 export function typeKey(type) {
   return typeof type === 'string' ? type : type.join('-');
 }
-
-// Stupid Holder to Improve Tag Switching
-export const SHITS = { switching: false };

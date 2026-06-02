@@ -1,40 +1,28 @@
 {
-  "name": "discord.js-website",
-  "version": "2.2.0",
-  "description": "The website housing documentation for discord.js",
-  "author": "Amish Shah <amishshah.2k@gmail.com>",
-  "contributors": [
-    "Schuyler Cebulskie <Gawdl3y@gawdl3y.com>"
-  ],
+  "type": "commonjs",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
     "fuse.js": "^6.4.1",
-    "konami-code-js": "^0.8.1",
-    "marked": "^1.1.1",
-    "regenerator-runtime": "^0.13.7",
-    "register-service-worker": "^1.7.1",
+    "highlight.js": "^11.11.1",
+    "marked": "^17.0.1",
+    "marked-react": "^3.0.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router": "^7.13.0",
     "semver": "^7.3.2",
-    "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "webpack": "^4.0.0"
+    "url": "^0.11.4"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-pwa": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.3",
+    "sass-embedded": "^1.97.3",
+    "vite": "^7.3.1"
   }
 }

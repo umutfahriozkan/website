@@ -14,4 +14,5 @@ function debounceDirective(el, binding) {
 }
 
 debounceDirective.debounce = debounce;
-module.exports = debounceDirective;
+//module.exports = debounceDirective;
+export default debounceDirective;
